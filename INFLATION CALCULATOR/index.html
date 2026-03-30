@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inflation Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Inflation Calculator</h1>
+  <span>Purchasing Power Over Time</span>
+</header>
+
+<div class="container">
+
+  <!-- INPUT CARD -->
+  <div class="card">
+    <div class="card-title">Enter Your Values</div>
+    <div class="fields">
+      <div class="field">
+        <label>Starting Amount</label>
+        <div class="prefix-wrap">
+          <span class="prefix">R</span>
+          <input type="number" id="amount" value="1000" min="1" placeholder="1000">
+        </div>
+      </div>
+      <div class="field">
+        <label>Start Year</label>
+        <input type="number" id="startYear" value="2000" min="1900" max="2099" placeholder="2000">
+      </div>
+      <div class="field">
+        <label>End Year</label>
+        <input type="number" id="endYear" value="2024" min="1900" max="2099" placeholder="2024">
+      </div>
+      <div class="field">
+        <label>Annual Inflation Rate (%)</label>
+        <input type="number" id="rate" value="5.5" step="0.1" placeholder="5.5">
+      </div>
+      <div class="field">
+        <label>Country / Context</label>
+        <input type="text" id="country" value="South Africa (ZAR)" placeholder="South Africa">
+      </div>
+      <div class="field">
+        <label>Compounding</label>
+        <input type="text" id="compounding" value="Annual" readonly class="readonly-input">
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calculate()">Calculate Inflation Impact</button>
+  </div>
+
+  <!-- RESULT CARD -->
+  <div class="result-card" id="resultCard">
+    <div class="result-row">
+      <div class="result-item">
+        <div class="rlabel">Original Value</div>
+        <div class="rvalue" id="res-original">—</div>
+        <div class="rsub" id="res-year-start">—</div>
+      </div>
+      <div class="result-item">
+        <div class="rlabel">Equivalent Value Today</div>
+        <div class="rvalue accent" id="res-adjusted">—</div>
+        <div class="rsub" id="res-year-end">—</div>
+      </div>
+      <div class="result-item">
+        <div class="rlabel">Purchasing Power Lost</div>
+        <div class="rvalue" id="res-loss">—</div>
+        <div class="rsub" id="res-pct">—</div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <canvas id="myChart"></canvas>
+    </div>
+
+    <div class="breakdown" id="breakdown-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Value (R)</th>
+            <th>Cumulative Inflation</th>
+            <th>Real Loss (R)</th>
+          </tr>
+        </thead>
+        <tbody id="breakdown-body"></tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      Calculated using the compound inflation formula: <em>FV = PV × (1 + r)ⁿ</em>, where r = annual inflation rate and n = number of years.
+      This model assumes a constant annual rate — real inflation varies year by year.
+      Source: BSc Computer Science &amp; Mathematics portfolio project · TreasuryONE Graduate Intern Application.
+    </div>
+  </div>
+
+  <!-- FORMULA CARD -->
+  <div class="formula-card">
+    <div class="card-title">The Mathematics Behind It</div>
+    <div class="formula">
+      <em>FV</em> = PV × (1 + r)<sup>n</sup>
+    </div>
+    <p class="formula-desc">
+      Where <strong>FV</strong> = future equivalent value &nbsp;·&nbsp;
+      <strong>PV</strong> = present (starting) value &nbsp;·&nbsp;
+      <strong>r</strong> = annual inflation rate &nbsp;·&nbsp;
+      <strong>n</strong> = number of years.
+      This is the same compound growth formula used in treasury to model the time value of money, bond pricing, and cash flow forecasting.
+    </p>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
